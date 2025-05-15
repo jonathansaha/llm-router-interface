@@ -21,3 +21,18 @@ Steps:
   "question": "What are the bgp neighbours in node2 router?"
 }'
 8. That is it!
+
+
+Workflow:
+
+1. User asks a question.
+2. The Middleware sends it to an LLM.
+3. LLM returns an appropriate command to
+middleware.
+4. Middleware sends that command to
+router.
+5. Router gives feedback.
+6. User gets the feedback.
+
+![Untitled-2025-05-15-0619](https://github.com/user-attachments/assets/6246b040-740c-46fd-bc2b-ec83a38f1179)
+
