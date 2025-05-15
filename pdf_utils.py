@@ -3,7 +3,7 @@ import os
 import glob
 
 def extract_text_from_pdfs():
-    directory = "/home/soap/be_u/nogfi/middleware/documents"
+    directory = "/home/middleware/documents"
     pdf_paths = sorted(glob.glob(os.path.join(directory, "*.pdf")))
 
     combined_text = ""
