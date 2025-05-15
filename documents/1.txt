@@ -1,0 +1,167 @@
+Nokia Service Router Linux
+Command Quick Reference, Release R20.6 
+
+Network-instance route table show commands
+
+System show commands
+
+• show network-instance route-table summary
+
+• show system application
+
+This quick reference provides a summary of commonly use SR Linux 
+commands and debugging strategies.
+
+shows a summary of IPv4/IPv6 route tables
+
+• show network-instance route-table all
+
+Hardware show commands
+
+• show platform
+
+shows all route table details (prefix, ID, active status, owner, metric, next-hop type/ID, etc.) for 
+the specified network instance
+
+Network-instance protocol show commands
+
+shows modules deployed, administrative and operational state, and the date/time the module type 
+
+was last changed
+
+• show platform environment
+
+shows modules deployed, administrative and operational state, and temperature
+
+• show platform [control|fabric|fan-tray|linecard|power-supply]
+
+shows specific modules deployed
+
+• show platform [redundancy|resource-monitoring]
+
+shows platform resource usage and redundancy
+
+• show network-instance <protocol name> summary
+
+shows a summary of the specified protocol status
+
+• show network-instance <instance name> protocols bgp 
+
+neighbor
+
+shows BGP neighbors for all peer addresses for the specified network instance
+
+• show network-instance <instance name> protocols bgp 
+neighbor <neighbor IP> [advertised-routes|received-
+routes|detail]
+
+shows the name, state, and version of currently running applications
+
+• show system logging
+
+shows log names, type, and directory
+
+• show system aaa authentication session <session id>
+
+shows AAA authentication sessions report
+
+• show system lldp neighbor interface <interface name>
+
+shows LLDP neighbor interface details
+
+• show system sflow status
+
+shows sFlow status
+
+Debugging - view log messages
+
+View the default log messages:
+
+1. From the CLI, enter bash mode and use the cat command to view 
+
+Version show commands
+
+• show version
+
+shows current software version and chassis type
+
+Interface show commands
+
+• show interface
+
+shows summary details for all interfaces and subinterfaces
+
+• show interface <interface name>
+
+shows summary details for the specified interface
+
+shows additional detail for a specified BGP neighbor IP
+
+• show network-instance <instance name> protocols bgp routes 
+
+{ipv4|ipv6} summary
+
+shows the BGP route report for the specified network instance
+
+the default log messages:
+
+bash cat /var/log/srlinux/buffer/messages
+2. To exit bash and return to the CLI, type: exit
+
+ACL show commands
+
+• show acl summary
+
+shows a summary of configured ACLs
+
+• show acl {ipv4-filter|ipv6-filter} <acl name> 
+
+shows details for a specified ACL
+
+Nokia is a registered trademark of Nokia Corporation. Other products and company names 
+mentioned herein may be trademarks or tradenames of their respective owners. The information 
+presented is subject to change without notice. No responsibility is assumed for inaccuracies 
+contained herein. Copyright © 2020 Nokia. 
+
+The registered trademark Linux® is used pursuant to a sublicense from the Linux Foundation, the 
+exclusive licensee of Linus Torvalds, owner of the mark on a worldwide basis.
+
+3HE 16121 AAAA TQZZA 01
+
+July 2020
+
+Debugging - trace-options
+
+Trace options provide additional debug capabilities. When enabled 
+beneath a protocol, messages log to the debug priority under the 
+corresponding subsystem.
+
+Enable trace-options:
+
+1. network-instance <name> protocols <type> trace-options flag 
+
+<flag type>
+For example: network-instance default protocols bgp 
+trace-options flag keepalive
+
+View where trace-options are enabled:
+
+1.
+
+info from state network-instance default protocols bgp trace-
+options
+
+2.
+
+info from state network-instance system logging 
+
+Configure log location example - (send to a console using messages 
+sourced from bgp with a severity of “debug”):
+
+1. system logging <send to location> subsystem <name> priority 
+
+<type> <value in brackets>
+For example: system logging console subsystem bgp 
+priority match-exact [debug]
+
+
