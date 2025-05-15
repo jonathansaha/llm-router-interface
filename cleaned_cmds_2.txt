@@ -1,0 +1,259 @@
+Platform & Hardware Commands
+
+show platform
+- Displays modules, their state, and type change time.
+
+show platform environment
+- Shows module temperatures and operational state.
+
+show platform linecard
+- Lists deployed line cards and their status.
+
+show platform power-supply
+- Displays power supply module details.
+
+show platform resource-monitoring
+- Shows platform resource usage.
+
+🔍 Version & System Info
+show version
+- Displays the current software version and chassis type.
+
+show system application
+- Lists running applications and their status.
+
+show system logging
+- Lists log files and logging settings.
+
+show system sflow status
+- Shows sFlow monitoring status.
+
+show system lldp neighbor interface <interface>
+- Displays LLDP neighbors on a specific interface.
+
+show system aaa authentication session <session-id>
+- Shows authentication session information.
+
+🌐 Network Instance & Routing
+show network-instance route-table summary
+- Summarizes IPv4/IPv6 route tables for instances.
+
+show network-instance route-table all
+- Displays all route entries with detailed attributes.
+
+show network-instance <name> protocols bgp neighbor
+- Shows BGP neighbors in a network instance.
+
+show network-instance <name> protocols bgp neighbor <ip>
+- Details advertised/received routes for a specific BGP peer.
+
+show network-instance <name> protocols bgp routes ipv4 summary
+- Summarizes IPv4 BGP routes.
+
+🔌 Interface Commands
+show interface
+- Shows summary of all interfaces and subinterfaces.
+
+show interface ethernet-1/1
+- Displays detailed info for a specific interface.
+
+🚦 ACL (Access Control List) Commands
+show acl summary
+- Lists all active ACLs.
+
+show acl ipv4-filter <name>
+- Displays stats for a specific IPv4 ACL.
+
+tools acl ipv4-filter <name> clear
+- Clears statistics for an ACL filter.
+
+tools acl ipv4-filter <name> entry <entry> statistics clear
+- Clears stats for a specific ACL entry.
+
+💾 Configuration Mode & State
+enter candidate
+- Enters candidate configuration mode.
+
+enter candidate name <name>
+- Switches to a named candidate config.
+
+commit stay
+- Commits changes and stays in candidate mode.
+
+commit now
+- Commits changes and exits to running mode.
+
+discard stay
+- Discards uncommitted changes and remains in candidate mode.
+
+discard now
+- Discards uncommitted changes and exits candidate mode.
+
+save startup
+- Saves running config as startup config.
+
+commit confirmed
+- Commits with confirmation timer for rollback.
+
+tools system configuration confirmed-accept
+- Confirms a previously committed config.
+
+🛠️ Diagnostic / Debug / Tools
+bash cat /var/log/srlinux/buffer/messages
+- Views default log messages from bash.
+
+network-instance default protocols bgp trace-options flag keepalive
+- Enables debug trace logging for BGP keepalives.
+
+info from state
+- Displays operational data from the state datastore.
+
+info from running
+- Displays current configuration from the running datastore.
+
+General Configuration
+info
+Displays the current configuration for a context.
+
+info detail
+Displays the full configuration with default values.
+
+admin-state enable/disable
+Enables or disables the feature or instance.
+
+OSPF
+router-id <ip>
+Sets a unique router ID for the OSPF instance.
+
+version ospf-v2/ospf-v3
+Specifies the OSPF version to use.
+
+area <area-id>
+Configures an OSPF area.
+
+interface <interface-name>
+Assigns an interface to an OSPF area.
+
+stub
+Configures an OSPF stub area.
+
+nssa
+Configures a Not-So-Stubby Area (NSSA).
+
+BGP
+autonomous-system <asn>
+Sets the local ASN for BGP.
+
+router-id <ip>
+Sets the BGP router ID.
+
+group <name>
+Creates a BGP peer group.
+
+neighbor <ip>
+Configures a BGP neighbor.
+
+peer-as <asn>
+Sets the remote ASN for the BGP neighbor.
+
+local-as <asn>
+Overrides the local ASN for a BGP neighbor.
+
+multihop
+Enables eBGP multihop.
+
+failure-detection
+Configures BFD and fast-failover for BGP peers.
+
+prefix-limit { max-received-routes <value> }
+Sets a maximum number of accepted prefixes from a peer.
+
+timers { prefix-limit-restart-timer <seconds> }
+Sets wait time before reestablishing a BGP session after a prefix-limit violation.
+
+tools network-instance <name> protocols bgp group <group-name> reset-peer peer-as <asn>
+Performs a hard reset on BGP peers in a group with specified ASN.
+
+tools network-instance <name> protocols bgp soft-clear peer-as <asn>
+Performs a soft reset on BGP peers with specified ASN.
+
+delete protocols bgp neighbor <ip>
+Deletes a BGP neighbor.
+
+delete protocols bgp group <group-name>
+Deletes a BGP peer group.
+
+IS-IS
+net <NET>
+Sets the Network Entity Title (NET) for IS-IS.
+
+level-capability L1/L2/L1L2
+Sets the router level for IS-IS.
+
+interface <interface-name>
+Configures IS-IS on an interface.
+
+authentication { keychain <name> }
+Enables IS-IS authentication using a keychain.
+
+non-stop-forwarding { admin-state enable }
+Enables non-stop forwarding (restart mode).
+
+graceful-restart { helper-mode true }
+Enables helper mode for graceful restart.
+
+tools network-instance <name> protocols isis instance <id> statistics clear
+Clears IS-IS statistics.
+
+tools network-instance <name> protocols isis instance <id> link-state-database clear
+Clears IS-IS LSP database.
+
+tools network-instance <name> protocols isis instance <id> interface <intf> adjacencies clear
+Clears IS-IS adjacencies.
+
+show network-instance <name> protocols isis summary
+Displays IS-IS status summary.
+
+Advanced Solutions Guide 24.10
+BGP
+afi-safi ipv4-unicast admin-state enable
+Enables IPv4 address family for BGP.
+
+afi-safi ipv6-unicast admin-state enable
+Enables IPv6 address family for BGP.
+
+timers hold-time <seconds>
+Sets BGP hold-time.
+
+show network-instance default protocols bgp neighbor <ip> detail
+Displays detailed BGP neighbor information.
+
+show neighbor
+Displays a summary of all BGP peers.
+
+EVPN/VXLAN
+show network-instance <name> vxlan-interface <vxlan-if>
+Displays VXLAN interface configuration.
+
+show tunnel vxlan-tunnel all
+Lists all VXLAN tunnels and VTEPs.
+
+tools tunnel vxlan-tunnel vtep <ip> statistics clear
+Clears VXLAN tunnel statistics for the specified VTEP.
+
+show network-instance <name> protocols bgp-vpn bgp-instance <id>
+Displays BGP-VPN configuration.
+
+show network-instance <name> protocols bgp-evpn bgp-instance <id>
+Displays BGP-EVPN configuration.
+
+show network-instance <name> protocols bgp routes evpn route-type 3 detail
+Shows EVPN route-type 3 (IMET) route information.
+
+
+
+
+
+
+
+
