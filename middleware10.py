@@ -15,7 +15,7 @@ def load_cli_context(file_path='formatted_cli_commands.txt'):
 CLI_CONTEXT = load_cli_context()[:30000]  # Adjust the limit as needed
 
 # Gemini API config
-GEMINI_API_KEY = "AIzaSyAGmclQaTaoUwLzN1ZSUzPUN1feREzgAA4"
+GEMINI_API_KEY = "AIzazzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzREzgAA4"
 GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
 
 ROUTER_HOSTS = {
