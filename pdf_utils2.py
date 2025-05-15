@@ -3,7 +3,7 @@ import os
 import glob
 
 def extract_and_save_text_from_pdfs(output_filename="router_commands.txt"):
-    directory = "/home/soap/be_u/nogfi/middleware/"
+    directory = "/home/middleware/"
     pdf_paths = sorted(glob.glob(os.path.join(directory, "*.pdf")))
 
     combined_text = ""
