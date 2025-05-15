@@ -5,7 +5,7 @@ import paramiko
 app = Flask(__name__)
 
 # === CONFIG ===
-GEMINI_API_KEY = "AIzaSyAgCgB0wGpU_c8tsm6fE3R8lkT_EcNFQFg"
+GEMINI_API_KEY = "AIzaSzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzEcNFQFg"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
 
 ROUTERS = {
