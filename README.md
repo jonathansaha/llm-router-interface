@@ -15,8 +15,8 @@ Steps:
 3. If you have access to something cloud hosted, you can use that. I used Gemini 2 free tier. You can use either step 2 or 3, dont need both.
 4. Update the middleware file. For simplicity, most credentials and api keys are hard coded. Dont do as I did.
 5. Get your context ready. For exmaple, I downloaded/copied Nokia SRLinux commands, manual, guides etc. Then I used pdf_utils.py and clean.py to creat text file that can be given in prompt. You can also use Chatgpt, Copilot, etc, to help you generate this file. This file has various commands and their explanations and examples. Files I used are in documents directory.
-6. Running middleware will start a server, you will request in this format.
-7. curl -X POST http://localhost:5000/query -H "Content-Type: application/json" -d '{
+6. Running middleware will start a server, you will request in below format.
+   curl -X POST http://localhost:5000/query -H "Content-Type: application/json" -d '{
   "router": "node2",
   "question": "What are the bgp neighbours in node2 router?"
 }'
