@@ -5,7 +5,7 @@ This repository is treated as a personal note to myself for the project.
 
 Most of the files are iteration of same things. Start working from last one, middleware10.py.
 
-pdf_utils.py and clean.py were used to make and cleaning the text files from pdf, for giving context to LLMs.
+pdf_utils.py and clean.py were used to make and clean the text files from pdf, for giving context to LLMs.
 
 
 Steps:
