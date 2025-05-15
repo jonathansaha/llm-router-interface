@@ -1,0 +1,72 @@
+Overview:
+Make a local LLM, connect it to a network device. see if it can trouble shoot.
+
+Step 1:
+All in docker.
+#docker network create -d macvlan --subnet 10.0.0.0/24 --gateway 10.0.0.1 --ip-range 10.0.0.224/27 -o parent=br0 macvlan224
+#docker run --rm -it --network macvlan224 nicolaka/netshoot /bin/bash
+To give docker access to local host network. Second line is for testing.
+
+doesnt work, but for some weird fking reason, docker default virtual bridge is reachable from host, fuck me right?
+
+Step 2:
+https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/sample-workload.html
+#sudo docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
+check if docker finds gpu
+#nvtop
+
+Step 3:
+running ollama with deepseek in docker
+https://hub.docker.com/r/ollama/ollama
+docker run -d --gpus=all -v ollama:/root/.ollama --network dbr1 --name ollama ollama/ollama
+running with gpu
+
+
+step 4:
+open web-ui
+
+go to /home/soap/be_u/nogfi/wannabne/openwebui
+
+for installing
+sudo apt install python3-venv
+  python3 -m venv myenv
+  source myenv/bin/activate
+  pip install open-webui
+  open-webui serve
+  
+for running
+go to /home/soap/be_u/nogfi/wannabne/openwebui
+source myenv/bin/activate
+open-webui serve
+
+to kill
+ps aux | grep open_webui
+sudo lsof -i :8080
+sudo kill -9 396681
+
+
+
+
+-----gemini 2 flash api agentic rag RAG > pdf of documents > action acctuator > terminal 
+
+-----------------------------------------------------------------------------------------------
+
+clab 
+/be_u/containerlab/test-1
+
+docker network create --subnet=172.30.0.0/24 dbr2
+get detroyed everytime i kill lab
+make again
+
+clab deploy test-1.clab.yml
+
+ssh admin@clab-srlceos01-node4 or ip
+
+--------------------------------------------------------
+
+
+
+
+
+
+
