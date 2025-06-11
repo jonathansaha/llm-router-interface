@@ -1,0 +1,228 @@
+Command: show platform
+Explanation: Displays information about the deployed modules, their administrative and operational states, and the date/time the module type was last changed.
+Example: show platform
+Command: show platform environment
+Explanation: Shows deployed modules, their administrative and operational states, and temperature.
+Example: show platform environment
+Command: show platform [control|fabric|fan-tray|linecard|power-supply]
+Explanation: Displays details for specific modules deployed.
+Example: show platform linecard
+Command: show platform [redundancy resource-monitoring]
+Explanation: Shows platform resource usage and redundancy information.
+Example: show platform redundancy resource-monitoring
+Command: show network-instance route-table summary
+Explanation: Provides a summary of IPv4/IPv6 route tables.
+Example: show network-instance route-table summary
+Command: show network-instance route-table all
+Explanation: Shows all route table details (prefix, ID, active status, owner, metric, next-hop type/ID, etc.) for the specified network instance.
+Example: show network-instance default route-table all
+Command: show network-instance <protocol name> summary
+Explanation: Shows a summary of the specified protocol status.
+Example: show network-instance default protocols bgp summary
+Command: show network-instance <instance name> protocols bgp neighbor
+Explanation: Displays BGP neighbors for all peer addresses for the specified network instance.
+Example: show network-instance default protocols bgp neighbor
+Command: show network-instance <instance name> protocols bgp neighbor <neighbor IP> [advertised-routes received-routes detail]
+Explanation: Shows additional detail for a specified BGP neighbor IP, including advertised or received routes.
+Example: show network-instance default protocols bgp neighbor 10.10.10.2 advertised-routes
+Command: show network-instance <instance name> protocols bgp routes {ipv4 ipv6} summary
+Explanation: Displays the BGP route report for the specified network instance for IPv4 or IPv6 routes.
+Example: show network-instance default protocols bgp routes ipv4 summary
+Command: show system application
+Explanation: Shows the name, state, and version of currently running applications.
+Example: show system application
+Command: show system logging
+Explanation: Displays log names, type, and directory.
+Example: show system logging
+Command: show system aaa authentication session <session id>
+Explanation: Shows AAA authentication sessions report for a specific session.
+Example: show system aaa authentication session 12345
+Command: show system lldp neighbor interface <interface name>
+Explanation: Shows LLDP neighbor interface details.
+Example: show system lldp neighbor interface ethernet-1/1
+Command: show system sflow status
+Explanation: Displays sFlow status.
+Example: show system sflow status
+Command: bash
+Explanation: Opens a bash shell session.
+Example: bash
+Command: bash <command>
+Explanation: Executes a command without entering a bash session.
+Example: bash cat /var/log/srlinux/buffer/messages
+Command: cls
+Explanation: Clears the screen.
+Example: cls
+Command: exit
+Explanation: Exits the current configuration context, or the CLI if at the root.
+Example: exit
+Command: exit all
+Explanation: Returns to the root context from any level.
+Example: exit all
+Command: show version
+Explanation: Shows the current software version and chassis type.
+Example: show version
+Command: show interface
+Explanation: Displays summary details for all interfaces and subinterfaces.
+Example: show interface
+Command: show interface <interface name>
+Explanation: Shows summary details for the specified interface.
+Example: show interface ethernet-1/1
+Command: show acl summary
+Explanation: Shows a summary of configured ACLs.
+Example: show acl summary
+Command: show acl {ipv4-filter ipv6-filter} <acl name>
+Explanation: Displays details for a specified ACL.
+Example: show acl ipv4-filter my-ipv4-acl
+Command: network-instance <name> protocols <type> trace-options flag <flag type>
+Explanation: Enables trace-options for a specific protocol within a network instance to log debug messages.
+Example: network-instance default protocols bgp trace-options flag keepalive
+Command: info from state network-instance default protocols bgp trace-options
+Explanation: Views where trace-options are enabled for BGP within the default network instance.
+Example: info from state network-instance default protocols bgp trace-options
+Command: info from state network-instance system logging
+Explanation: Views where trace-options are enabled for system logging within the network instance.
+Example: info from state network-instance system logging
+Command: system logging <send to location> subsystem <name> priority <type> <value in brackets>
+Explanation: Configures the log location and filtering for messages sourced from a specific subsystem with a given severity.
+Example: system logging console subsystem bgp priority match-exact [debug]
+Command: commit now
+Explanation: Applies the changes, exits candidate mode, and enters running mode.
+Example: commit now
+Command: commit stay
+Explanation: Applies the changes and then remains in candidate mode.
+Example: commit stay
+Command: commit save
+Explanation: Applies the changes and automatically saves the commit to the startup configuration.
+Example: commit save
+Command: commit checkpoint
+Explanation: Applies the changes and causes an automatic checkpoint after the commit succeeds.
+Example: commit checkpoint
+Command: commit validate
+Explanation: Verifies that a proposed configuration change passes a management server validation.
+Example: commit validate
+Command: commit comment <comment>
+Explanation: Adds a user comment to the commit (used with other keywords).
+Example: commit stay comment "Updated BGP neighbors"
+Command: commit confirmed [timeout]
+Explanation: Applies the changes but requires an explicit confirmation to become permanent. If not confirmed within the timeout, changes are reverted.
+Example: commit confirmed 120
+Command: interface ethernet-1/2 admin-state disable
+Explanation: Administratively shuts down a specified interface.
+Example: interface ethernet-1/2 admin-state disable
+Command: info system maintenance group mgroup1
+Explanation: Displays information about a maintenance group.
+Example: info system maintenance group mgroup1
+Command: system maintenance group mgroup1 maintenance-mode admin-state disable
+Explanation: Takes a maintenance group out of maintenance mode.
+Example: system maintenance group mgroup1 maintenance-mode admin-state disable
+Command: routing-policy policy policy01
+Explanation: Enters the configuration context for a routing policy.
+Example: routing-policy policy policy01
+Command: insert statement <statement name> after <existing statement name>
+Explanation: Moves a statement after an existing statement within a routing policy.
+Example: insert statement red after green
+Command: info
+Explanation: Displays the current configuration or information within the current configuration context. Can be used with options like as json, detail, flat, depth.
+Example: info, info | as json, info detail, info depth 1
+Command: enter candidate
+Explanation: Enters the candidate shared configuration mode.
+Example: enter candidate
+Command: enter candidate name <name>
+Explanation: Enters the shared candidate mode for a named shared candidate.
+Example: enter candidate name my_config
+Command: enter candidate private
+Explanation: Enters the candidate private configuration mode.
+Example: enter candidate private
+Command: enter candidate private name <name>
+Explanation: Enters the candidate private mode for a named candidate.
+Example: enter candidate private name temp_config
+Command: enter candidate exclusive
+Explanation: Enters the exclusive mode for a named candidate.
+Example: enter candidate exclusive
+Command: enter candidate exclusive name <name>
+Explanation: Enters the exclusive mode for a named candidate.
+Example: enter candidate exclusive name special_config
+Command: enter running
+Explanation: Enters the running mode (default).
+Example: enter running
+Command: enter state
+Explanation: Enters the state mode to display configuration and operational states.
+Example: enter state
+Command: enter show
+Explanation: Enters the show mode (used with show CLI plug-ins).
+Example: enter show
+Command: ping <destination>
+Explanation: Sends ICMP echo requests to a network host.
+Example: ping 192.168.1.1, ping 10.0.0.1 -c 5
+Command: ping6 <destination>
+Explanation: Sends ICMPv6 echo requests to an IPv6 network host.
+Example: ping6 2001:db8::1
+Command: traceroute <destination>
+Explanation: Prints the route IP packets trace to a network host.
+Example: traceroute 8.8.8.8
+Command: traceroute6 <destination>
+Explanation: Prints the route IPv6 packets trace to an IPv6 network host.
+Example: traceroute6 2001:4860:4860::8888
+Command: tools
+Explanation: Executes a tool command.
+Example: tools system configuration confirmed-accept
+Command: system name host-name <hostname>
+Explanation: Configures the hostname of the SR Linux device.
+Example: system name host-name srl-router-1
+Command: system name domain-name <domain>
+Explanation: Configures the domain name of the SR Linux device.
+Example: system name domain-name mynetwork.com
+Command: system aaa authentication user username <username> ssh-key [ <public-key> ] password <password>
+Explanation: Configures a public SSH key and password for an SR Linux user.
+Example: system aaa authentication user username admin ssh-key "ssh-rsa AAAAB..." password "securepassword"
+Command: save startup
+Explanation: Saves the running configuration to the startup configuration file.
+Example: save startup
+Command: save rescue
+Explanation: Saves the running configuration to the rescue configuration file.
+Example: save rescue
+Command: save checkpoint
+Explanation: Saves the running configuration to a configuration checkpoint.
+Example: save checkpoint
+Command: save file <name> from running
+Explanation: Saves the running configuration to the specified file in JSON format.
+Example: save file my_config.json from running
+Command: file cat <path>
+Explanation: Displays the content of a specified file.
+Example: file cat /etc/opt/srlinux/config.json
+Command: file ls <path>
+Explanation: Lists directory contents.
+Example: file ls /etc/opt/srlinux/
+Command: file cp <source> <destination>
+Explanation: Copies files or directories.
+Example: file cp /tmp/config.json /etc/opt/srlinux/
+Command: file mv <source> <destination>
+Explanation: Moves or renames files.
+Example: file mv old_config.json new_config.json
+Command: file rm <path>
+Explanation: Removes files or directories.
+Example: file rm /tmp/old_log.txt
+Command: file mkdir <path>
+Explanation: Creates new directories.
+Example: file mkdir /var/log/custom
+Command: file stat <path>
+Explanation: Displays file or directory status.
+Example: file stat /etc/opt/srlinux/config.json
+Command: file md5sum <path>
+Explanation: Computes and checks MD5 checksums of files.
+Example: file md5sum /etc/opt/srlinux/config.json
+Command: file chmod <mode> <path>
+Explanation: Changes file permissions.
+Example: file chmod 644 /etc/opt/srlinux/config.json
+Command: file chown <owner> <path>
+Explanation: Changes file owner.
+Example: file chown root /etc/opt/srlinux/config.json
+Command: file chgrp <group> <path>
+Explanation: Changes file group owner.
+Example: file chgrp staff /etc/opt/srlinux/config.json
+Command: tech-support
+Explanation: Collects technical support information.
+Example: tech-support scp-to admin@192.168.1.10:/tmp/
+Command: environment alias <name> <command>
+Explanation: Configures CLI aliases for frequently used commands.
+Example: environment alias shint "show interface"
