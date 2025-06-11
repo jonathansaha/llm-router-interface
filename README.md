@@ -16,10 +16,13 @@ Steps:
 4. Update devices.list and api.key files as per your environment.
 5. Get your context ready. For exmaple, I downloaded/copied Nokia SRLinux commands, manual, guides etc. Then I used pdf_utils.py and clean.py to creat text file that can be given in prompt. You can also use Chatgpt, Copilot, etc, to help you generate this file. This file has various commands and their explanations and examples. Files I used are in documents directory.
 6. Running middleware will start a server, you will request in this format. >> 
+
    curl -X POST http://localhost:5000/query -H "Content-Type: application/json" -d '{
   "router": "node2",
   "question": "What are the bgp neighbours in node2 router?"
 }'
+
+7. Asking questions and reading through responses in CLI can get messy if the output gets large. To make it look better, there is index.html. Open it while the middleware is running. It pulls the devices list from the file devices.list and put it in the dropdown menu. 
 8. That is it!
 
 
