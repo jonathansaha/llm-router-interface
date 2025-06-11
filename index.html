@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SR Linux CLI Assistant</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #0056b3; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], select, textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background-color: #0056b3; }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .response-section { margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+        .status-message { font-style: italic; color: #555; margin-top: 10px; }
+        .error-message { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SR Linux CLI Assistant</h1>
+
+        <div>
+            <label for="routerSelect">Select Router:</label>
+            <select id="routerSelect">
+                </select>
+        </div>
+
+        <div>
+            <label for="questionInput">Ask a question:</label>
+            <input type="text" id="questionInput" placeholder="e.g., What are the BGP neighbors?">
+        </div>
+
+        <button onclick="sendQuery()">Get CLI Command and Output</button>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <div class="response-section">
+            <h2>Response:</h2>
+            <p><strong>Router:</strong> <span id="responseRouter"></span></p>
+            <p><strong>Question:</strong> <span id="responseQuestion"></span></p>
+            <p><strong>Generated Command:</strong> <span id="responseCommand"></span></p>
+            <h3>Output:</h3>
+            <pre id="responseOutput"></pre>
+        </div>
+    </div>
+
+    <script>
+        const middlewareUrl = "http://localhost:5000"; // Base URL for your Flask middleware
+        const queryEndpoint = `${middlewareUrl}/query`;
+        const routersEndpoint = `${middlewareUrl}/get_routers`; // New endpoint for routers
+
+        const routerSelect = document.getElementById('routerSelect');
+        const questionInput = document.getElementById('questionInput');
+        const responseRouter = document.getElementById('responseRouter');
+        const responseQuestion = document.getElementById('responseQuestion');
+        const responseCommand = document.getElementById('responseCommand');
+        const responseOutput = document.getElementById('responseOutput');
+        const statusMessage = document.getElementById('statusMessage');
+
+        async function loadRouters() {
+            statusMessage.textContent = 'Loading routers...';
+            statusMessage.classList.remove('error-message');
+            try {
+                const response = await fetch(routersEndpoint);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const routers = await response.json();
+                
+                routerSelect.innerHTML = ''; // Clear existing options
+                if (routers.length === 0) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'No routers found';
+                    routerSelect.appendChild(option);
+                    routerSelect.disabled = true; // Disable if no routers
+                    statusMessage.textContent = 'Error: No routers loaded from devices.list. Check server logs.';
+                    statusMessage.classList.add('error-message');
+                    return;
+                }
+
+                routers.forEach(router => {
+                    const option = document.createElement('option');
+                    option.value = router;
+                    option.textContent = router;
+                    routerSelect.appendChild(option);
+                });
+                routerSelect.disabled = false; // Enable if routers are found
+                statusMessage.textContent = 'Routers loaded successfully.';
+            } catch (error) {
+                console.error('Error loading routers:', error);
+                statusMessage.textContent = `Error loading routers: ${error.message}. Ensure Flask app is running and Flask-CORS is enabled.`;
+                statusMessage.classList.add('error-message');
+                routerSelect.disabled = true; // Disable on error
+            }
+        }
+
+        async function sendQuery() {
+            const selectedRouter = routerSelect.value;
+            const question = questionInput.value.trim();
+
+            if (!selectedRouter) {
+                alert("Please select a router.");
+                return;
+            }
+            if (!question) {
+                alert("Please enter a question.");
+                return;
+            }
+
+            // Clear previous results and set initial status
+            responseRouter.textContent = '';
+            responseQuestion.textContent = '';
+            responseCommand.textContent = '';
+            responseOutput.textContent = 'Loading...';
+            statusMessage.textContent = 'Sending request to middleware...';
+            statusMessage.classList.remove('error-message');
+
+
+            try {
+                const response = await fetch(queryEndpoint, { // Use queryEndpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        router: selectedRouter,
+                        question: question
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    responseRouter.textContent = data.router;
+                    responseQuestion.textContent = data.question;
+                    responseCommand.textContent = data.command;
+                    responseOutput.textContent = data.output;
+                    statusMessage.textContent = `Status: ${data.status || 'Success'}`;
+                    statusMessage.classList.remove('error-message');
+                } else {
+                    // Handle API errors
+                    responseOutput.textContent = `Error: ${data.error || 'An unknown error occurred.'}`;
+                    statusMessage.textContent = `Error: ${data.error || 'An unknown error occurred.'} Status: ${data.status || 'Failed'}`;
+                    statusMessage.classList.add('error-message');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                responseOutput.textContent = `Network Error: ${error.message}. Ensure your Flask app is running and accessible.`;
+                statusMessage.textContent = `Network Error: ${error.message}. Check console for details.`;
+                statusMessage.classList.add('error-message');
+            }
+        }
+
+        // Initialize routers on page load
+        document.addEventListener('DOMContentLoaded', loadRouters);
+    </script>
+</body>
+</html>

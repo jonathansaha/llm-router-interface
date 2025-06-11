@@ -1,0 +1,3 @@
+#router_name,host,username,password
+node1,172.30.0.3,admin,NokiaSrl1!
+node2,172.30.0.2,admin,NokiaSrl1!
