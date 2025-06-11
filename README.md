@@ -39,3 +39,15 @@ router.
 
 ![Untitled-2025-05-15-0619](https://github.com/user-attachments/assets/6246b040-740c-46fd-bc2b-ec83a38f1179)
 
+Screenshots:
+
+![image](https://github.com/user-attachments/assets/1f939079-a069-4733-b5e4-3061d24dba74)
+Output using index.html.
+
+![image](https://github.com/user-attachments/assets/c622e288-ef94-483e-a02a-edbc945823d9)
+Output from middleware during a request.
+
+![image](https://github.com/user-attachments/assets/01e4c051-ae32-4bc2-8e65-fbf8c2a7ccd6)
+Output in CLI.
+
+
