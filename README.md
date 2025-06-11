@@ -22,7 +22,7 @@ Steps:
   "question": "What are the bgp neighbours in node2 router?"
 }'
 
-7. Asking questions and reading through responses in CLI can get messy if the output gets large. To make it look better, there is index.html. Open it while the middleware is running. It pulls the devices list from the file devices.list and put it in the dropdown menu. 
+7. Asking questions and reading through responses in CLI can get messy if the output gets large. To make it look better, there is index.html. Open it while the middleware is running. It pulls the devices list from the file devices.list and puts it in the dropdown menu. 
 8. That is it!
 
 
